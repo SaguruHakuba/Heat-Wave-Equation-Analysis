@@ -11,18 +11,26 @@ Time = unique([0:dt:T,T]);
 PosY = unique([0:dy:L,L]);
 Sol = zeros(length(PosX), length(PosY), length(Time));
 for k = 2: length(PosY)
-    Sol(:,k,2) = (PosX.^2 + PosY.^2)/10;
+%     Sol(:,k,2) = (PosX.^2 + PosY.^2)/10;
+    Sol(:,k,2) = (PosX + PosY)/10;
+%     Sol(:,k,2) = (PosX.^3 + PosY.^3)/10;
+%     Sol(:,k,2) = max(PosX, PosY)/10;
 %     Sol(:,k,2) = (exp(-10*(PosX-(L/2)).^2) - exp(-10*(L/2).^2))*dt;
 end
 r = alpha * dt^2;
 index = 2:length(PosX)-1;
 ind = 2:length(PosY)-1;
 
-for l = index
-    a = PosX(l);
-    b = PosY(l);
-    if ((a^2 + b^2) == 1)
-        Sol(index(l), ind(l), :) = 0.1;
+for m = index
+    for n = ind
+        a = PosX(m);
+        b = PosY(n);
+%         if ((a^2 + b^2) == 1)
+        if ((a + b) == 1)
+%         if ((a^3 + b^3) == 1)
+%         if (max(a,b) == 1)
+            Sol(index(m), ind(n), :) = 0.1;
+        end
     end
 end
 
